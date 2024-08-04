@@ -14,10 +14,15 @@ interface Choice {
 interface PlayerAttribute {
     money: number;
     health: number;
+    insight: number;
     reputation: number;
 }
 
+type Outcome = (attributes: PlayerAttribute) => GameState;
+
+
 let startState: GameState;
+let IdentifyTreasure: GameState;
 let CrossRode: GameState;
 let leftPath: GameState;
 let rightPath: GameState;
@@ -30,6 +35,7 @@ let EndGame: GameState;
 
 function initializeStates() {
     startState = { story: "", choices: [] };
+    IdentifyTreasure = { story: "开始鉴定宝物", choices: [] };
     CrossRode = { story: "", choices: [] };
     leftPath = { story: "", choices: [] };
     rightPath = { story: "", choices: [] };
@@ -42,7 +48,9 @@ function initializeStates() {
     startState.story = "你是个古玩爱好者，希望通过自己的经验找到一些宝贝";
     startState.choices = [
         { text: "去古玩街", nextState: [CrossRode] , probabilities: [1.0] },
-        { text: "在周围逛逛", nextState: [rightPath], probabilities: [1.0] }
+        { text: "在周围逛逛", nextState: [rightPath], probabilities: [1.0] },
+        { text: "把玩自己的藏品", nextState: [IdentifyTreasure], probabilities: [1.0] },
+        { text: "放弃收藏爱好", nextState: [EndGame], probabilities: [1.0] },
     ];
 
     CrossRode.story = "你来到了一个十字路口";
@@ -108,6 +116,7 @@ function getNextState(choice: Choice, attributes : PlayerAttribute): GameState {
     }
     return choice.nextState[choice.nextState.length - 1];
 }
+
 class Game {
     private currentState: GameState;
     private playerAttributes: PlayerAttribute;
