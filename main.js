@@ -18,7 +18,7 @@ function initializeStates() {
     State2 = { story: "", choices: [] };
     State1_1 = { story: "", choices: [] };
     State1_2 = { story: "", choices: [] };
-    EndGame = { story: "游戏结束", choices: [] };
+    EndGame = { story: "看来收藏古玩不适合你，让我们看看喜欢收藏的世界线吧！", choices: [] };
     startState.story = "你是个古玩爱好者，希望通过自己的经验找到一些宝贝";
     startState.choices = [
         { text: "去古玩街", nextState: function () { return CrossRode; } },
